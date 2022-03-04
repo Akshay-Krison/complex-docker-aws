@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Docker-Build-Push
 
 on:
   push:
@@ -67,6 +67,22 @@ jobs:
     - uses: actions/checkout@v2
     - name: Checkout
       run: docker push akshaylilac/complex-nginx
+
+
+  docker-deploy:
+    name: Deploy Docker to EC2
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.AWS_SSH_KEY }}
+        name: id_rsa
+        known_hosts: ${{ secrets.KNOWN_HOSTS }}
+    - name: rsync over ssh
+      run: docker-compose up -d
 
 
 
