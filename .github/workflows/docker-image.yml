@@ -13,7 +13,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build -t akshaylilac/complex-client ./client
+      run: |
+            docker build -t akshaylilac/complex-client ./client
+            docker build -t akshaylilac/complex-server ./server
+            docker build -t akshaylilac/complex-worker ./worker
+            docker build -t akshaylilac/complex-nginx ./nginx
+
     - name: Login to DockerHub
       uses: docker/login-action@v1
       with:
@@ -21,4 +26,6 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}    
     - uses: actions/checkout@v2
     - name: Checkout
-      run: docker push akshaylilac/complex-client
+      run:  |
+             docker push akshaylilac/complex-client
+
