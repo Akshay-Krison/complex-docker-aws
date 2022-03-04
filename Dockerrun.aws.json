@@ -9,7 +9,7 @@
 		},
 		{
 			"name": "server",
-			"image": "akshaylilac / complex-worker",
+			"image": "akshaylilac/complex-server",
 			"hostname": "api",
 			"essential": false
 		},
