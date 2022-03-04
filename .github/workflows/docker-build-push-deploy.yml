@@ -70,6 +70,7 @@ jobs:
 
 
   docker-deploy:
+    needs: [build-push-client, build-push-server, build-push-worker, build-push-nginx]
     name: Deploy Docker to EC2
     runs-on: ubuntu-latest
     steps:
