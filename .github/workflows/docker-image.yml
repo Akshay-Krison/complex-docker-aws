@@ -8,24 +8,40 @@ on:
 
 jobs:
 
-  build:
+  build-client:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: |
-            docker build -t akshaylilac/complex-client ./client
-            docker build -t akshaylilac/complex-server ./server
-            docker build -t akshaylilac/complex-worker ./worker
-            docker build -t akshaylilac/complex-nginx ./nginx
+      run: docker build -t akshaylilac/complex-client ./client
+  build-server:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build -t akshaylilac/complex-server ./server
+  build-worker:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build -t akshaylilac/complex-worker ./worker
 
+  build-nginx:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build -t akshaylilac/complex-nginx ./nginx
+      
+  push-client:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: docker/login-action@v1
     - name: Login to DockerHub
-      uses: docker/login-action@v1
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}    
     - uses: actions/checkout@v2
     - name: Checkout
-      run:  |
-             docker push akshaylilac/complex-client
-
+      run: docker push akshaylilac/complex-client
