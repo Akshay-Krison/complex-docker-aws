@@ -1,6 +1,7 @@
 {
 	"AWSEBDockerrunVersion": 2,
-	"containerDefinitions": [{
+	"containerDefinitions": [
+		{
 			"name": "client",
 			"image": "akshaylilac/complex-client",
 			"hostname": "client",
@@ -22,11 +23,16 @@
 			"name": "nginx",
 			"image": "akshaylilac/complex-nginx",
 			"essential": true,
-			"portMappings": [{
-				"hostPort": 80,
-				"containerPort": 80
-			}],
-			"links": ["client", "server"]
+			"portMappings": [
+				{
+					"hostPort": 80,
+					"containerPort": 80
+				}
+			],
+			"links": [
+				"client",
+				"server"
+			]
 		}
 	]
 }
